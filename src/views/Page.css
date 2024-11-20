@@ -1,0 +1,21 @@
+.output-safety h1, .guides h1, .secure-prompts h1, .choose-your-challenge h1, .select-your-language {
+    text-align: center;
+}
+
+.select-your-language button {
+    width: 100px;
+    margin:50px;
+    text-align: center;
+}
+
+.nav-bar {
+    text-align: center;
+}
+
+.secure-prompts-body {
+    margin-left: 40px;
+}
+
+.question p {
+    font-weight: bold;
+}
