@@ -16,6 +16,10 @@
     margin-left: 40px;
 }
 
-.question p {
+.question p, .potential-fix p {
     font-weight: bold;
+}
+
+.question {
+    margin-bottom: 10px;
 }
