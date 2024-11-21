@@ -20,7 +20,7 @@ const SecurePrompts: React.FC = () => {
                 { key: 'D', text: "Can you help me write a product summary for a new tech device targeting professionals? The device focuses on productivity and security and will launch next year. Keep the language engaging and high-level." },
             ],
             correctAnswer: 'D',
-            feedback: "Choice A - Includes confidential information including: financials, product details, and product features \n Choice B - This includes information about private company financials \n Choice C - Here you pass in information about the product and its features which leaks private company information not made public yet. \n Choice D - Correct! Information here is intentionally kept vague yet still allows a good outline/template to start the summary of the product"
+            feedback: "Choice A is incorrect as it includes confidential information including: financials, product details, and product features. Choice B is incorrect as this includes information about private company financials. Choice C is incorrect as here you pass in information about the product and its features which leaks private company information not made public yet. Choice D - Correct! Information here is intentionally kept vague yet still allows a good outline/template to start the summary of the product"
         },
         {
             title: "Level 2",
@@ -31,7 +31,19 @@ const SecurePrompts: React.FC = () => {
                 {key: 'C', text: "Can you help me draft a section about our company's commitment to community initiatives, focusing on our efforts to support environmental and educational causes? Keep it general and engaging."}
             ],
             correctAnswer: 'C',
-            feedback: "Choice A is incorrect. GPT will keep information you feed it so detailing a donation that hasn't been announced potentially leaks this info. ..."
+            feedback: "Choice A is incorrect. GPT will keep information you feed it so detailing a donation that hasn't been announced potentially leaks this info. Choice B is incorrect. Information passed in is too specific and gives away details meant to be kept private. Choice C is correct, as information is kept vague and guides GPT to a useful output."
+        },
+        {
+            title: "Level 3",
+            question: "You are preparing a competitive strategy document for your company. Your team has analyzed market trends and competitor weaknesses, and you need to communicate these findings. How might you use Chat GPT to help WITHOUT LEAKING CONFIDENTIAL INFORMATION?",
+            options: [
+                {key: 'A', text: "Our analysis shows that our competitor is struggling to retain customers aged 18-25 due to poor product usability. Can you write a strategy highlighting how we can exploit this gap for our Q2 product launch?"},
+                {key: 'B', text: "Our competitor is preparing to release an AI-powered gadget next quarter targeting professionals. Their product lacks advanced biometric security, which we plan to emphasize in our marketing strategy. Can you draft this section?"},
+                {key: 'C', text: "Our sales data shows we gained 15% of our competitor's customers last quarter. Can you draft a strategy document showcasing how we can replicate this success in new regions?"},
+                {key: 'D', text: "Can you draft a general strategy document for improving our market positioning, with a focus on addressing usability and security concerns in consumer technology? Keep it high-level and forward-looking."}
+            ],
+            correctAnswer: "D",
+            feedback: "Choice A is incorrect. This includes confidential data and/or unverified claims about a competing company which should not be disclosed to the AI. Choice B is incorrect. This includes confidential data and/or unverified claims about a competing company which should not be disclosed to the AI. Choice C is incorrect. This includes confidential data and/or unverified claims about a competing company which should not be disclosed to the AI. Choice D is correct. Information is kept vague and no confidential data was exposed to ChatGPT in the generation of the output."
         }
     ]
 
