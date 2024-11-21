@@ -29,6 +29,7 @@ password = input("Enter password: ")
 
 login(username, password)
 `,
+            numLines: 16,
             vulnerabilityLine: 13,
             feedback: "The vulnerability in this code is on line 13. Here, the user enters a password in plaintext, which could put them at risk for having someone else reading and stealing their password. In general, passwords should never be stored or displayed in plaintext. This vulnerability can be mitigated by simply using the getpass module, which will ensure that the password is obfuscated and not displayed in plaintext.",
             fix: `from getpass import getpass
@@ -60,6 +61,7 @@ def fetch_user_information(username):
 username = input("Enter username: ")
 fetch_user_information(username)
 `,
+            numLines: 20,
             vulnerabilityLine: 8,
             feedback: "The vulnerability occurs on line 8. Here, the user is able to enter any value as the username, and this value will be executed by the SQL database. This means that a user may enter malicious input that can do anything from delete the table to reveal the information of all entries in the table. This vulnerability can be mitigated through a variety of methods, but the most common and industry-standard method is parameterization, which will ensure that the input is read as data only: ",
             fix: `query = "SELECT * FROM users WHERE username = ?" 
@@ -84,6 +86,7 @@ def create_user_file(username):
 username = input("Enter username: “)
 create_user_file(username)
 `,
+            numLines: 18,
             vulnerabilityLine: 7,
             feedback: "Line 7, and consequently line 8, have a vulnerability. Here, the code checks to see whether a file exists, and if not, the code creates the file. If two users run the code with the same username at the same time, this can create a race condition, as the same file will be created twice, potentially overwriting or corrupting data. This also allows for the potentiality of more serious implications, including denial of service attacks or injecting malicious files. This vulnerability can be mitigated by using locks to ensure that only one user can create or write to the file at once.",
             fix: `import os
@@ -109,7 +112,9 @@ def create_user_file(username):
     dropdown: { width: 150 },
   };
 
-  const dropdownOptions: IDropdownOption[] = Array.from({ length: 16 }, (_, i) => ({ key: `${i}`, text: `${i}` }));
+  function createDropdownOptions(length: number): IDropdownOption[] {
+    return Array.from({ length }, (_, i) => ({ key: `${i+1}`, text: `${i+1}` }));
+}
 
     return (
         <div className="secure-prompts">
@@ -128,7 +133,7 @@ def create_user_file(username):
                             vulnerabilityLine={level.vulnerabilityLine}
                             feedback={level.feedback}
                             fix={level.fix}
-                            dropdownOptions={dropdownOptions}
+                            dropdownOptions={createDropdownOptions(level.numLines)}
                             dropdownStyles={dropdownStyles}
                         />
                     ))}
