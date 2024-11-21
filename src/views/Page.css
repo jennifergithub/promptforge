@@ -12,7 +12,7 @@
     text-align: center;
 }
 
-.secure-prompts-body {
+.secure-prompts-body, .output-safety-body {
     margin-left: 40px;
 }
 

@@ -8,6 +8,7 @@ import SecurePrompts from './views/SecurePrompts';
 import { DefaultButton } from '@fluentui/react';
 import OutputSafety from './views/OutputSafety';
 import Guides from './views/Guides';
+import { LevelsProvider } from './LevelsContext'; // Import LevelsProvider
 
 const App: React.FC = () => {
   return (
@@ -22,7 +23,7 @@ const App: React.FC = () => {
           
             <Route path="/choose-your-challenge" element={<ChooseYourChallenge />} />
             <Route path="/secure-prompts/:language" element={<SecurePrompts />} />
-            <Route path="/output-safety/:language" element={<OutputSafety />} />
+            <Route path="/output-safety/:language" element={<LevelsProvider><OutputSafety /></LevelsProvider>} />
             <Route path="/guides" element={<Guides />} />
         </Routes>
       </Router>

@@ -3,61 +3,70 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import './Page.css';
 import { DefaultButton, Dropdown, IDropdownOption, IDropdownStyles } from '@fluentui/react';
+import { useLevels } from '../LevelsContext';
+
 
 interface LevelProps {
-    title: string;
-    code: string;
-    vulnerabilityLine: number;
-    feedback: string;
-    fix: string;
-    dropdownOptions: IDropdownOption[];
-    dropdownStyles: Partial<IDropdownStyles>;
+    _showAnswer: boolean;
+    setShowAnswer: React.Dispatch<React.SetStateAction<boolean>>; // Add the setter for showAnswer
 }
 
-const Level: React.FC<LevelProps> = ({ title, code, vulnerabilityLine, feedback, fix, dropdownOptions, dropdownStyles }) => {
-    const [showAnswer, setShowAnswer] = useState(false);
+const Level: React.FC<LevelProps> = ({ _showAnswer, setShowAnswer }) => {
+    const { levels, currentLevel } = useLevels();
+    
     const [selectedAnswer, setSelectedAnswer] = useState(-1);
     const [feedbackMessage, setFeedbackMessage] = useState("");
 
+    const current = levels[currentLevel];
+
+    const dropdownStyles: Partial<IDropdownStyles> = {
+        dropdown: { width: 150 },
+      };
+
+    
     const handleSubmit = () => {
         setShowAnswer(true);
-        if (selectedAnswer === vulnerabilityLine) {
+        if (selectedAnswer === current.vulnerabilityLine) {
             setFeedbackMessage("Correct!");
         } else {
             setFeedbackMessage("Incorrect!");
         }
     };
 
+
     const handleDropdownChange = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, option?: IDropdownOption, index?: number): void => {
         if (index !== undefined) {
-            setSelectedAnswer(index);
+            setSelectedAnswer(index+1);
         }
     };
 
     return (
         <div className="level">
-            <h3>{title}</h3>
+            <h3>{current.title}</h3>
             <SyntaxHighlighter language="python" style={coy} showLineNumbers>
-                {code}
+                {current.code}
             </SyntaxHighlighter>
             <div className="question">
                 <p>Which line contains the security vulnerability?</p>
-                <Dropdown placeholder="Select line" options={dropdownOptions} styles={dropdownStyles} onChange={handleDropdownChange} />
+                <Dropdown placeholder="Select line" options={Array.from({ length: current.numLines }, (_, i) => ({
+                        key: `${i + 1}`,
+                        text: `${i + 1}`,
+                    }))} styles={dropdownStyles} onChange={handleDropdownChange} />
             </div>
             <div className="answer">
                 <DefaultButton text="Submit" onClick={handleSubmit} />
-                {showAnswer && (
+                {_showAnswer && (
                     <div>
                         <p>{feedbackMessage}</p>
-                        <p>{feedback}</p>
+                        <p>{current.feedback}</p>
                     </div>
                 )}
             </div>
-            {showAnswer && (
+            {_showAnswer && (
                 <div className="potential-fix">
                     <p>Potential fix:</p>
                     <SyntaxHighlighter language="python" style={coy}>
-                        {fix}
+                        {current.fix}
                     </SyntaxHighlighter>
                 </div>
             )}
