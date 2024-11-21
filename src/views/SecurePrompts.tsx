@@ -16,7 +16,7 @@ const SecurePrompts: React.FC = () => {
             options: [
                 { key: 'A', text: "Can you help me write a product summary for our new device, the UltraSync X200? It's launching next quarter, and our estimated revenue from pre-sales is $5 million. Also, here's the feature list: an AI-powered scheduler and a biometric security system." },
                 { key: 'B', text: "I'm preparing a presentation for our client, NovaTech. Here are their sales projections for next year, which we're including: $12 million in Q1, $15 million in Q2. Please make this look appealing and professional." },
-                { key: 'C', text: "We're working on a new product we are about to propose to our company. Here is a draft of our explanation of it and its features. Could you make this sound more polished?", disabled: true },
+                { key: 'C', text: "We're working on a new product we are about to propose to our company. Here is a draft of our explanation of it and its features. Could you make this sound more polished?" },
                 { key: 'D', text: "Can you help me write a product summary for a new tech device targeting professionals? The device focuses on productivity and security and will launch next year. Keep the language engaging and high-level." },
             ],
             correctAnswer: 'D',
