@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-interface Level {
+interface OutputLevel {
     title: string;
     code: string;
     vulnerabilityLine: number;
@@ -9,18 +9,21 @@ interface Level {
     numLines: number;
 }
 
-interface LevelsContextProps {
-    levels: Level[];
+interface OutputLevelsContextProps {
+    levels: OutputLevel[];
     currentLevel: number;
     setCurrentLevel: React.Dispatch<React.SetStateAction<number>>;
+    currentMoney: number;
+    setCurrentMoney: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const LevelsContext = createContext<LevelsContextProps | undefined>(undefined);
+const OutputLevelsContext = createContext<OutputLevelsContextProps | undefined>(undefined);
 
-export const LevelsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const OutputLevelsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [currentLevel, setCurrentLevel] = useState(0);
+    const [currentMoney, setCurrentMoney] = useState(1000000);
 
-    const levels: Level[] = [
+    const levels: OutputLevel[] = [
         {
             title: "Level 1: You are tasked with creating a simple Python program that validates a user's login:",
             code: `# A simple login simulation
@@ -72,8 +75,8 @@ username = input("Enter username: ")
 fetch_user_information(username)
 `,
             numLines: 20,
-            vulnerabilityLine: 8,
-            feedback: "The vulnerability occurs on line 8. Here, the user is able to enter any value as the username, and this value will be executed by the SQL database. This means that a user may enter malicious input that can do anything from delete the table to reveal the information of all entries in the table. This vulnerability can be mitigated through a variety of methods, but the most common and industry-standard method is parameterization, which will ensure that the input is read as data only: ",
+            vulnerabilityLine: 9,
+            feedback: "The vulnerability occurs on line 9. Here, the user is able to enter any value as the username, and this value will be executed by the SQL database. This means that a user may enter malicious input that can do anything from delete the table to reveal the information of all entries in the table. This vulnerability can be mitigated through a variety of methods, but the most common and industry-standard method is parameterization, which will ensure that the input is read as data only: ",
             fix: `query = "SELECT * FROM users WHERE username = ?" 
 cursor.execute(query, username)`
         },
@@ -118,14 +121,14 @@ def create_user_file(username):
         }
     ]
     return (
-        <LevelsContext.Provider value={{ levels, currentLevel, setCurrentLevel }}>
+        <OutputLevelsContext.Provider value={{ levels, currentLevel, setCurrentLevel, currentMoney, setCurrentMoney }}>
             {children}
-        </LevelsContext.Provider>
+        </OutputLevelsContext.Provider>
     );
 };
 
 export const useLevels = () => {
-    const context = useContext(LevelsContext);
+    const context = useContext(OutputLevelsContext);
     if (!context) {
         throw new Error('useLevels must be used within a LevelsProvider');
     }

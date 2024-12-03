@@ -1,18 +1,16 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import { LanguageProvider } from './LanguageContext'; // Import the provider
 import MainLayout from './views/MainLayout';
-import ChooseYourChallenge from './views/ChooseYourChallenge';
 import SecurePrompts from './views/SecurePrompts';
 import { DefaultButton } from '@fluentui/react';
 import OutputSafety from './views/OutputSafety';
-import Guides from './views/Guides';
-import { LevelsProvider } from './LevelsContext'; // Import LevelsProvider
+import HowTo from './views/HowTo';
+import { OutputLevelsProvider } from './OutputLevelsContext'; // Import LevelsProvider
+import { SecurePromptLevelsProvider } from './SecurePromptLevelsContext';
 
 const App: React.FC = () => {
   return (
-    <LanguageProvider>
       <Router>
         <Routes>
           {/* Routes */}
@@ -20,14 +18,11 @@ const App: React.FC = () => {
           path="/"
           element={<LandingPage />} // Use a dedicated landing page component
           />
-          
-            <Route path="/choose-your-challenge" element={<ChooseYourChallenge />} />
-            <Route path="/secure-prompts/:language" element={<SecurePrompts />} />
-            <Route path="/output-safety/:language" element={<LevelsProvider><OutputSafety /></LevelsProvider>} />
-            <Route path="/guides" element={<Guides />} />
+            <Route path="/secure-prompts/" element={<SecurePromptLevelsProvider><SecurePrompts /></SecurePromptLevelsProvider>} />
+            <Route path="/output-safety/" element={<OutputLevelsProvider><OutputSafety /></OutputLevelsProvider>} />
+            <Route path="/how-to" element={<HowTo />} />
         </Routes>
       </Router>
-  </LanguageProvider>
   );
 };
 
@@ -36,7 +31,7 @@ const LandingPage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/choose-your-challenge'); // Navigate to "Choose Your Challenge"
+    navigate('/how-to/'); // Navigate to "How-To"
   };
 
   return (

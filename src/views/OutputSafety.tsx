@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import './Page.css';
 import MainLayout from './MainLayout';
 import { DefaultButton, Dropdown, IDropdownOption, IDropdownStyles } from '@fluentui/react';
-import Level from './Level'
-import { useLevels } from '../LevelsContext';
+import OutputLevel from './OutputLevel'
+import { useLevels } from '../OutputLevelsContext';
 
 const OutputSafety: React.FC = () => {
-    const { language } = useParams<{ language: string }>();
-    const { levels, currentLevel, setCurrentLevel } = useLevels();
+    const { levels, currentLevel, setCurrentLevel, currentMoney } = useLevels();
     const [showAnswer, setShowAnswer] = useState(false);
 
     const handleNext = () => {
@@ -26,21 +23,22 @@ const OutputSafety: React.FC = () => {
             <MainLayout />
             <h1>Output Safety</h1>
             <div className="output-safety-body">
-                <p>You selected: <strong>{language}</strong></p>
-                {/* Show different content based on the language */}
-                {language === 'python' && (
+                {currentMoney > 0 ? (
                     <div>
-                        <Level _showAnswer={showAnswer} setShowAnswer={setShowAnswer}/>
-                        <DefaultButton
-                            text="Next"
-                            onClick={handleNext}
-                            disabled={currentLevel >= levels.length - 1}
-                            style={{ marginTop: '10px' }}
-                        />
+                    <OutputLevel _showAnswer={showAnswer} setShowAnswer={setShowAnswer}/>
+                    <DefaultButton
+                        text="Next"
+                        onClick={handleNext}
+                        disabled={currentLevel >= levels.length - 1}
+                        style={{ marginTop: '10px' }}
+                    />
+            </div>
+                ): (
+                    <div className="game-over">
+                    <p>Game Over! You've run out of money.</p>
                 </div>
                 )}
-                {language === 'java' && <p>Java challenges will appear here!</p>}
-                {language === 'c' && <p>C challenges will appear here!</p>}
+                    
             </div>
             
         </div>

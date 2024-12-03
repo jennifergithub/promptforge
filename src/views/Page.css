@@ -1,19 +1,19 @@
-.output-safety h1, .guides h1, .secure-prompts h1, .choose-your-challenge h1, .select-your-language {
+.output-safety h1, .how-to h1, .secure-prompts h1 {
     text-align: center;
 }
 
-.select-your-language button {
-    width: 100px;
-    margin:50px;
+.game-over {
     text-align: center;
+    color: red;
+    font-weight: bold;
 }
 
 .nav-bar {
     text-align: center;
 }
 
-.secure-prompts-body, .output-safety-body {
-    margin-left: 40px;
+.secure-prompts-body, .output-safety-body, .how-to-body {
+    margin: 30px;
 }
 
 .question p, .potential-fix p {
