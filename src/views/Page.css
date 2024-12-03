@@ -2,6 +2,27 @@
     text-align: center;
 }
 
+.how-to .img, .how-to .gif {
+    text-align: center;
+}
+
+.how-to .gif img {
+    width: 700px;
+    margin-bottom: 40px;
+}
+
+.how-to img {
+    width: 300px;
+}
+
+#classified {
+    width: 200px;
+}
+
+#marketTrends {
+    width: 350px;
+}
+
 .game-over {
     text-align: center;
     color: red;
